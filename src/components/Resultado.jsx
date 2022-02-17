@@ -28,7 +28,7 @@ const Imagen = styled.img`
   width: 120px;
 `;
 
-const Resultado = ({ resultadoMoneda, moneda }) => {
+const Resultado = ({ resultadoMoneda }) => {
   const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE } =
     resultadoMoneda;
   return (
@@ -39,6 +39,7 @@ const Resultado = ({ resultadoMoneda, moneda }) => {
       />
       <div>
         <Precio>
+          {/* El Precio es de: <span>{PRICE}</span> */}
           El Precio es de: <span>{PRICE}</span>
         </Precio>
         <Texto>

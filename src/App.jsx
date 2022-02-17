@@ -48,7 +48,7 @@ function App() {
 
   const { moneda, criptomoneda } = monedas;
   useEffect(() => {
-    if (monedas.moneda) {
+    if (moneda && criptomoneda) {
       const consultarAPI = async () => {
         setCargando(true);
         setResultadoMoneda({});
@@ -73,7 +73,7 @@ function App() {
         <Formulario setMonedas={setMonedas} />
         {cargando && <Spinner />}
         {resultadoMoneda.PRICE && (
-          <Resultado resultadoMoneda={resultadoMoneda} moneda={moneda} />
+          <Resultado resultadoMoneda={resultadoMoneda} />
         )}
       </div>
     </Contenedor>

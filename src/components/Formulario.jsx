@@ -38,7 +38,7 @@ const Formulario = ({ setMonedas }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (moneda === "" || criptomoneda === "") {
-      setMensaje("Los campos son obligatorios");
+      setMensaje("Todos los campos son obligatorios");
     } else {
       setMensaje("");
     }
