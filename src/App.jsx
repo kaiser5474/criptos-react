@@ -43,11 +43,13 @@ const Heading = styled.h1`
 function App() {
   const [monedas, setMonedas] = useState({});
   const [resultadoMoneda, setResultadoMoneda] = useState({});
+  const [cargando, setCargando] = useState(false);
 
   const { moneda, criptomoneda } = monedas;
   useEffect(() => {
     if (Object.keys(monedas).length > 0) {
       const consultarAPI = async () => {
+        setCargando(true);
         const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`;
         const respuesta = await fetch(url);
         const resultado = await respuesta.json();
@@ -55,6 +57,7 @@ function App() {
         cuando tiene parametros que varian en dependencia de la consulta */
         const arrayCriptos = resultado.RAW[criptomoneda][moneda];
         setResultadoMoneda(arrayCriptos);
+        setCargando(false);
       };
       consultarAPI();
     }
@@ -66,11 +69,9 @@ function App() {
       <div>
         <Heading>Cotiza criptomonedas al instante</Heading>
         <Formulario setMonedas={setMonedas} />
+        {cargando && <p>Cargando...</p>}
         {resultadoMoneda.PRICE && (
-          <Resultado 
-            resultadoMoneda={resultadoMoneda} 
-            moneda = {moneda}
-          />
+          <Resultado resultadoMoneda={resultadoMoneda} moneda={moneda} />
         )}
       </div>
     </Contenedor>

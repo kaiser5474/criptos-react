@@ -2,14 +2,30 @@ import React from "react";
 import styled from "styled-components";
 import { formatearNumero, formatearFecha } from "../helpers";
 
-const DIV = styled.div`
+const Contenedor = styled.div`
   color: white;
   font-family: "Lato", sans-serif;
   font-weight: 700;
-  font-size: 20px;
   margin-top: 30px;
-  text-align: right;
-  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const Texto = styled.p`
+  font-size: 18px;
+  span {
+    font-weight: 700;
+  }
+`;
+
+const Precio = styled.p`
+  font-size: 24px;
+`;
+
+const Imagen = styled.img`
+  display: block;
+  width: 120px;
 `;
 
 const Resultado = ({ resultadoMoneda, moneda }) => {
@@ -17,24 +33,30 @@ const Resultado = ({ resultadoMoneda, moneda }) => {
     resultadoMoneda;
   //console.log(moneda);
   return (
-    <DIV>
-      <p>
-        El Precio es de: <span>{formatearNumero(Number(PRICE), moneda)}</span>
-      </p>
-      <p>
-        Precio más alto del día: <span>{HIGHDAY}</span>
-      </p>
-      <p>
-        Precio más bajo del día: <span>{LOWDAY}</span>
-      </p>
-      <p>
-        Variación ultimas 24 horas:{" "}
-        <span>{formatearNumero(CHANGEPCT24HOUR)}</span>
-      </p>
-      <p>
-        Última actualización: <span>{formatearFecha(LASTUPDATE)}</span>
-      </p>
-    </DIV>
+    <Contenedor>
+      <Imagen
+        src={`https://cryptocompare.com${IMAGEURL}`}
+        alt="imagen cripto"
+      />
+      <div>
+        <Precio>
+          El Precio es de: <span>{formatearNumero(Number(PRICE), moneda)}</span>
+        </Precio>
+        <Texto>
+          Precio más alto del día: <span>{HIGHDAY}</span>
+        </Texto>
+        <Texto>
+          Precio más bajo del día: <span>{LOWDAY}</span>
+        </Texto>
+        <Texto>
+          Variación ultimas 24 horas:{" "}
+          <span>{formatearNumero(CHANGEPCT24HOUR)}</span>
+        </Texto>
+        <Texto>
+          Última actualización: <span>{formatearFecha(LASTUPDATE)}</span>
+        </Texto>
+      </div>
+    </Contenedor>
   );
 };
 
