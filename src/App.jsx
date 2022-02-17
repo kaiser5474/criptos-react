@@ -3,6 +3,7 @@ import Formulario from "./components/Formulario";
 import styled from "styled-components";
 import ImagenCripto from "./img/imagen-criptos.png";
 import Resultado from "./components/Resultado";
+import Spinner from "./components/Spinner";
 
 const Contenedor = styled.div`
   max-width: 900px;
@@ -47,15 +48,16 @@ function App() {
 
   const { moneda, criptomoneda } = monedas;
   useEffect(() => {
-    if (Object.keys(monedas).length > 0) {
+    if (monedas.moneda) {
       const consultarAPI = async () => {
         setCargando(true);
+        setResultadoMoneda({});
         const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`;
         const respuesta = await fetch(url);
         const resultado = await respuesta.json();
         /*aqui estoy usando los corchetes porque es la forma de acceder dinamicamente en el objeto, 
         cuando tiene parametros que varian en dependencia de la consulta */
-        const arrayCriptos = resultado.RAW[criptomoneda][moneda];
+        const arrayCriptos = resultado.DISPLAY[criptomoneda][moneda];
         setResultadoMoneda(arrayCriptos);
         setCargando(false);
       };
@@ -69,7 +71,7 @@ function App() {
       <div>
         <Heading>Cotiza criptomonedas al instante</Heading>
         <Formulario setMonedas={setMonedas} />
-        {cargando && <p>Cargando...</p>}
+        {cargando && <Spinner />}
         {resultadoMoneda.PRICE && (
           <Resultado resultadoMoneda={resultadoMoneda} moneda={moneda} />
         )}

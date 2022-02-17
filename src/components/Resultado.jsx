@@ -31,7 +31,6 @@ const Imagen = styled.img`
 const Resultado = ({ resultadoMoneda, moneda }) => {
   const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE } =
     resultadoMoneda;
-  //console.log(moneda);
   return (
     <Contenedor>
       <Imagen
@@ -40,7 +39,7 @@ const Resultado = ({ resultadoMoneda, moneda }) => {
       />
       <div>
         <Precio>
-          El Precio es de: <span>{formatearNumero(Number(PRICE), moneda)}</span>
+          El Precio es de: <span>{PRICE}</span>
         </Precio>
         <Texto>
           Precio más alto del día: <span>{HIGHDAY}</span>
@@ -49,11 +48,10 @@ const Resultado = ({ resultadoMoneda, moneda }) => {
           Precio más bajo del día: <span>{LOWDAY}</span>
         </Texto>
         <Texto>
-          Variación ultimas 24 horas:{" "}
-          <span>{formatearNumero(CHANGEPCT24HOUR)}</span>
+          Variación ultimas 24 horas: <span>{CHANGEPCT24HOUR}</span>
         </Texto>
         <Texto>
-          Última actualización: <span>{formatearFecha(LASTUPDATE)}</span>
+          Última actualización: <span>{LASTUPDATE}</span>
         </Texto>
       </div>
     </Contenedor>
