@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { formatearNumero, formatearFecha } from "../helpers";
 
 const DIV = styled.div`
   color: white;
@@ -11,10 +12,28 @@ const DIV = styled.div`
   margin-right: 5px;
 `;
 
-const Resultado = ({ resultadoMoneda }) => {
+const Resultado = ({ resultadoMoneda, moneda }) => {
+  const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE } =
+    resultadoMoneda;
+  //console.log(moneda);
   return (
     <DIV>
-      <label>Precio: {resultadoMoneda.PRICE}</label>
+      <p>
+        El Precio es de: <span>{formatearNumero(Number(PRICE), moneda)}</span>
+      </p>
+      <p>
+        Precio más alto del día: <span>{HIGHDAY}</span>
+      </p>
+      <p>
+        Precio más bajo del día: <span>{LOWDAY}</span>
+      </p>
+      <p>
+        Variación ultimas 24 horas:{" "}
+        <span>{formatearNumero(CHANGEPCT24HOUR)}</span>
+      </p>
+      <p>
+        Última actualización: <span>{formatearFecha(LASTUPDATE)}</span>
+      </p>
     </DIV>
   );
 };

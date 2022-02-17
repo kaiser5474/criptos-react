@@ -51,18 +51,10 @@ function App() {
         const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`;
         const respuesta = await fetch(url);
         const resultado = await respuesta.json();
+        /*aqui estoy usando los corchetes porque es la forma de acceder dinamicamente en el objeto, 
+        cuando tiene parametros que varian en dependencia de la consulta */
         const arrayCriptos = resultado.RAW[criptomoneda][moneda];
         setResultadoMoneda(arrayCriptos);
-        //console.log(arrayCriptos);
-        //.map((cripto) => {
-        //   // const cryptomonedas = {
-        //   //   id: cripto.CoinInfo.Name,
-        //   //   nombre: cripto.CoinInfo.FullName,
-        //   // };
-        //   //return cryptomonedas;
-        //
-        // });
-        //setCriptos(arrayCriptos);
       };
       consultarAPI();
     }
@@ -74,7 +66,12 @@ function App() {
       <div>
         <Heading>Cotiza criptomonedas al instante</Heading>
         <Formulario setMonedas={setMonedas} />
-        <Resultado resultadoMoneda={resultadoMoneda} />
+        {resultadoMoneda.PRICE && (
+          <Resultado 
+            resultadoMoneda={resultadoMoneda} 
+            moneda = {moneda}
+          />
+        )}
       </div>
     </Contenedor>
   );
